@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BlogRoutes.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java-mexico-blog</a> &gt; <a href="index.source.html" class="el_package">mx.javamexico.post</a> &gt; <span class="el_source">BlogRoutes.java</span></div><h1>BlogRoutes.java</h1><pre class="source lang-java linenums">package mx.javamexico.post;
+
+import java.util.Map;
+
+import io.jooby.Jooby;
+import io.jooby.ModelAndView;
+import mx.javamexico.categoria.CategoriaController;
+import mx.javamexico.middlewares.Headers;
+import mx.javamexico.utils.GsonParser;
+
+<span class="nc" id="L11">public class BlogRoutes extends Jooby {</span>
+	{
+<span class="nc" id="L13">		path(&quot;/blogs&quot;, () -&gt; {</span>
+<span class="nc" id="L14">			get(&quot;/index.html&quot;, ctx -&gt; {</span>
+<span class="nc" id="L15">				Map&lt;String, Object&gt; model = Map.of(&quot;perro&quot;, &quot;hola&quot;);</span>
+
+<span class="nc" id="L17">				return new ModelAndView(&quot;index.hbs&quot;, model);</span>
+			});
+
+<span class="nc" id="L20">			routes(() -&gt; {</span>
+<span class="nc" id="L21">				before(Headers.JsonHeaders);</span>
+<span class="nc" id="L22">				path(&quot;/services&quot;, () -&gt; {</span>
+<span class="nc" id="L23">					get(&quot;/get-all&quot;, ctx -&gt; BlogController.getPosts()</span>
+<span class="nc" id="L24">						.thenApply(list -&gt; GsonParser.parser.toJson(list))</span>
+<span class="nc" id="L25">						.exceptionally(ex -&gt; &quot;[]&quot;));</span>
+<span class="nc" id="L26">				});</span>
+				
+<span class="nc" id="L28">				path(&quot;/services&quot;, () -&gt; {</span>
+<span class="nc" id="L29">					get(&quot;/get-categorias&quot;, ctx -&gt; CategoriaController.getCategorias()</span>
+<span class="nc" id="L30">						.thenApply(list -&gt; GsonParser.parser.toJson(list))</span>
+<span class="nc" id="L31">						.exceptionally(ex -&gt; &quot;[]&quot;));</span>
+<span class="nc" id="L32">				});</span>
+<span class="nc" id="L33">			});</span>
+<span class="nc" id="L34">		});</span>
+<span class="nc" id="L35">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

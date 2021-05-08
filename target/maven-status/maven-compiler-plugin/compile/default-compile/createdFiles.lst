@@ -1,0 +1,7 @@
+mx/javamexico/categoria/Categoria.class
+mx/javamexico/middlewares/Headers.class
+mx/javamexico/utils/DataSource.class
+mx/javamexico/utils/GsonParser.class
+mx/javamexico/categoria/CategoriaDao.class
+mx/javamexico/Main.class
+mx/javamexico/usuario/UsuarioController.class
